@@ -5,9 +5,9 @@ app = Flask(__name__)
 api = Api(app)
 
 hoteis = [
-   {"hoteis_id": "paraiso", "nome": "Hotel Paraiso", "estrelas": 4.8,"diaria": 125.75, "cidade": "Porto"},
-   {"hoteis_id": "fukui", "nome": "Hotel  Fukui Paradise", "estrelas": 4.9,"diaria": 225.75, "cidade": "Lisboa"},
-      {"hoteis_id": "saint", "nome": "Resort saint", "estrelas": 4.3,"diaria": 165.75, "cidade": "Coimbra"}
+   {"hotel_id": "paraiso", "nome": "Hotel Paraiso", "estrelas": 4.8,"diaria": 125.75, "cidade": "Porto"},
+   {"hotel_id": "fukui", "nome": "Hotel  Fukui Paradise", "estrelas": 4.9,"diaria": 225.75, "cidade": "Lisboa"},
+      {"hote_id": "saint", "nome": "Resort saint", "estrelas": 4.3,"diaria": 165.75, "cidade": "Coimbra"}
 ]
 
 class Hoteis(Resource):
@@ -16,10 +16,13 @@ class Hoteis(Resource):
 
 class Hotel(Resource):
     def get(self, hotel_id):
-        for Hotel in hoteis:
-           if Hotel["hotel_id"] == hotel_id:
-            return Hotel
+        for hotel in hoteis:
+           if hotel["hotel_id"] == hotel_id:
+            return hotel
         return {"mensagem": "Hotel não foi encontrado"}
+    def delete (self, hotel_id):
+       global hoteis
+       hoteis = [hotel for hotel in hoteis if hotel ["hotel_id"] != hotel_id]
 
 api.add_resource(Hoteis,"/hoteis")
 
